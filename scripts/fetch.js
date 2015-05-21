@@ -10,20 +10,21 @@ require.config = function(params) {
     mkdirp.sync(deps_dir);
     params.fetch.forEach(function(filepath) {
         var filename = path.basename(filepath);
-        var writer = fs.createWriteStream(path.join(deps_dir, filename));
-
-        if (filepath.startsWith('http://')) {
-            http.request(filepath, function(response) {
-                response.pipe(writer);
-            }).end();
-        } else if (filepath.startsWith('https://')) {
-            https.request(filepath, function(response) {
-                response.pipe(writer);
-            }).end();
-        } else {
-            var reader = fs.createReadStream(filepath);
-            reader.pipe(writer);
-        }
+        if (params.local || filename === 'require.js') {
+            var writer = fs.createWriteStream(path.join(deps_dir, filename));
+            if (filepath.startsWith('http://')) {
+                http.request(filepath, function(response) {
+                    response.pipe(writer);
+                }).end();
+            } else if (filepath.startsWith('https://')) {
+                https.request(filepath, function(response) {
+                    response.pipe(writer);
+                }).end();
+            } else {
+                var reader = fs.createReadStream(filepath);
+                reader.pipe(writer);
+            };
+        };
     });
 };
 
