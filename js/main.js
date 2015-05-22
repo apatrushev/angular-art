@@ -1,7 +1,7 @@
 /**
- * Main module configuring RequireJS using config from config.js.
+ * Main module configuring RequireJS using config.js.
  * Config format slightly differernt from base RequireJS
- * format (in place of paths).
+ * format (mostly in place of paths and adding some mandatory things).
  * Instead of paths you should provide fetch attribute:
  *  - just list of urls
  *  - mapping with keys as cdn base url's and values as array of libs
@@ -42,6 +42,33 @@
     require(['config'], function(config) {
         config.fetch = buildFetchArray(config.fetch);
         config.paths = buildDeps(config.fetch, config.local);
+
+        config.shim = config.shim || {};
+        config.shim.angular = {
+            exports: 'angular',
+        };
+
+        //provide application name to start module
+        config.config.start = {
+            app: config.config.app.name
+        };
+
+        //start module is main entry-point
+        config.deps = [
+            'start'
+        ];
+
+        //it depend's on app module
+        config.shim.start = {
+            deps: [
+                'app',
+            ],
+        };
+
+        //...and controller modules
+        config.shim.start.deps.push.apply(config.shim.start.deps, config.controllers);
+
+        //fire!!!
         require.config(config);
     });
 }());

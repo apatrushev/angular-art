@@ -1,9 +1,6 @@
 /**
  * Base module to bootstrap angular app with requirejs.
- * Application name to start should be passed in require
- * module configuration option 'app'.
- * See more here:
- * http://requirejs.org/docs/api.html#config-moduleconfig
+ * @param {string} app - Application name to bootstrap.
  */
 define([
     'module',

@@ -8,24 +8,15 @@ define(function() {
             ]
         },
         local: true,
-        shim: {
-            'angular': {
-                exports: 'angular',
-            },
-            'start': {
+        controllers: [
+            'controllers/main'
+        ],
+        config: {
+            app: {
+                name: 'TemplateApp',
                 deps: [
-                    'app',
-                    'controllers',
                 ],
             },
-        },
-        config: {
-            start: {
-                app: 'TemplateApp',
-            },
-        },
-        deps: [
-            'start',
-        ],
+        }
     };
 });
