@@ -30,7 +30,8 @@
     };
 
     require(['config'], function(config) {
-        config.paths = buildDeps(buildFetchArray(config.fetch));
+        config.fetch = buildFetchArray(config.fetch);
+        config.paths = buildDeps(config.fetch, config.local);
         require.config(config);
     });
 }());

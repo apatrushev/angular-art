@@ -7,10 +7,17 @@ require('String.prototype.startsWith');
 
 //dirty hack to be able to import web mods
 var originalRequire = require;
-require = function(modules) {
+require = function(modules, callback) {
     if (Array.isArray(modules)) {
-        modules.map(function(mod) {
+        var result = modules.map(function(mod) {
+            var defined_function = undefined;
+            var define = function(f) {
+                defined_function = f;
+            };
             eval(fs.readFileSync('js/' + mod + '.js')+'');
+            if (defined_function !== undefined) {
+                callback(defined_function());
+            };
         });
     } else {
         return originalRequire(modules);
@@ -41,4 +48,4 @@ require.config = function(params) {
 };
 
 //we cannot use require here because we need 'our require inside'
-eval(fs.readFileSync('js/main.js')+'');
+require(['main']);
