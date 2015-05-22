@@ -10,6 +10,9 @@ node_modules: package.json
 js/deps: node_modules js/config.js scripts/fetch.js
 	@node scripts/fetch.js
 
+deploy: dist
+	echo 'some deploy steps'
+
 dist: clean js/deps
 	@rm -rf node_modules
 
