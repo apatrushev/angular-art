@@ -1,4 +1,4 @@
-all: deps run
+all: js/deps run
 
 run: node_modules
 	/bin/bash -c 'sleep 1; open http://127.0.0.1:8080'
@@ -7,10 +7,10 @@ run: node_modules
 node_modules: package.json
 	@npm install
 
-deps: node_modules js/config.js scripts/fetch.js
+js/deps: node_modules js/config.js scripts/fetch.js
 	@node scripts/fetch.js
 
-dist: clean deps
+dist: clean js/deps
 	@rm -rf node_modules
 
 clean:
