@@ -39,7 +39,7 @@
             'start': {
                 deps: [
                     'app',
-                    'controllers/main',
+                    'controllers',
                 ],
             },
         },

@@ -3,8 +3,5 @@
         "mkdirp": "0.5.0",
         "string.prototype.startswith": "0.2.0",
         "http-server": "0.8.0"
-    },
-    "scripts": {
-        "fetch": "node scripts/fetch.js"
     }
 }
