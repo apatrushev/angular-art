@@ -1,4 +1,14 @@
+/**
+ * Main module configuring RequireJS using config from config.js.
+ * Config format slightly differernt from base RequireJS
+ * format (in place of paths).
+ * Instead of paths you should provide fetch attribute:
+ *  - just list of urls
+ *  - mapping with keys as cdn base url's and values as array of libs
+ */
 ;(function (undefined) {
+    'use strict';
+
     function buildFetchArray(fetch) {
         return Object.keys(fetch).reduce(function(array, key) {
             return array.concat(fetch[key].map(function(lib) {
