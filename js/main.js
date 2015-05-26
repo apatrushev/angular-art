@@ -41,7 +41,15 @@
 
     require(['config'], function(config) {
         config.fetch = buildFetchArray(config.fetch);
-        config.paths = buildDeps(config.fetch, config.local);
+
+        if (config.paths !== undefined) {
+            var deps = buildDeps(config.fetch, config.local);
+            for(var k in deps) {
+                config.paths[k] = deps[k];
+            };
+        } else {
+            config.paths = buildDeps(config.fetch, config.local);
+        };
 
         config.shim = config.shim || {};
         config.shim.angular = {
