@@ -74,18 +74,19 @@
         };
 
         //set application mods dependency on angular
-        var mods = config.config.app.mods;
+        var mods = config.config.app['bad-mods'];
         if (mods !== undefined) {
             mods.forEach(function(val) {
                 config.shim[val] = config.shim[val] || {};
                 config.shim[val].deps = config.shim[val].deps || [];
                 config.shim[val].deps.push('angular');
+                config.shim.start.deps.push(val);
             });
         };
 
         //...and controller modules
         var startDeps = config.shim.start.deps;
-        startDeps.push.apply(startDeps, config.config.app.controllers);
+        startDeps.push.apply(startDeps, config.config.app.mods);
 
         //fire!!!
         require.config(config);

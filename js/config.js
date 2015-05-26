@@ -8,13 +8,11 @@ define(function() {
             ]
         },
         local: true,
-        controllers: [
-            'controllers/main'
-        ],
         config: {
             app: {
                 name: 'TemplateApp',
-                deps: [
+                mods: [
+                    'controllers/main'
                 ],
             },
         }
