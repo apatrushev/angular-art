@@ -73,8 +73,19 @@
             ],
         };
 
+        //set application mods dependency on angular
+        var mods = config.config.app.mods;
+        if (mods !== undefined) {
+            mods.forEach(function(val) {
+                config.shim[val] = config.shim[val] || {};
+                config.shim[val].deps = config.shim[val].deps || [];
+                config.shim[val].deps.push('angular');
+            });
+        };
+
         //...and controller modules
-        config.shim.start.deps.push.apply(config.shim.start.deps, config.controllers);
+        var startDeps = config.shim.start.deps;
+        startDeps.push.apply(startDeps, config.config.app.controllers);
 
         //fire!!!
         require.config(config);
